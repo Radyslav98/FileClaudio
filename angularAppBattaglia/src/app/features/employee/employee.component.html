@@ -1,0 +1,46 @@
+<h3>Modulo Inserimento nuovo Impiegato</h3>
+<hr>
+
+<h6>Versione tramite tag html input</h6>
+<input type="text" placeholder="Matricola [Obbligatoria]" #enrolmentNumber required>
+<input type="text" placeholder="Nominativo [Obbligatorio]" #fullName required>
+<hr>
+<button (click)="Confirm(enrolmentNumber,fullName)">Conferma</button>
+<!-- <input type="text" placeholder="Matricola" #enroll (keydown.enter)="FindEnroll(enroll)"> -->
+<hr>
+<h6>Versione tramite form, in particolare con la direttiva Angular, ngForm</h6>
+<!-- <pre>
+  {{frmEmployee.value.matricola}}
+  form valido?: {{frmEmployee.valid}}
+  form sporcato?: {{frmEmployee.dirty}}
+  form toccato?: {{frmEmployee.touched}}
+</pre> -->
+
+<div *ngIf="matricola.touched" >
+  <div style="color: red;" *ngIf="matricola.errors?.['required']">matricola obbligatoria</div>
+  <div style="color: red;" *ngIf="matricola.errors?.['minlength']">Matricola da 4 caratteri</div>
+  </div>
+
+<div *ngIf="nominativo.touched" >
+<div style="color: red;" *ngIf="nominativo.errors?.['required']">Il Nominativo è obbligatorio</div>
+<div style="color: red;" *ngIf="nominativo.errors?.['minlength']">Il Nominativo deve contenere almeno 3 caratteri</div>
+</div>
+
+<form #frmEmployee="ngForm" (submit)="InsertEmployee(frmEmployee)">
+  <input type="text" placeholder="Matricola [Obbligatoria]" #matricola="ngModel" required
+   minlength="4" maxlength="4" name="matricola" [ngModel]="newEmployee.enrollmentNumber" >
+
+   <input type="text" placeholder="Nominativo [Obbligatoria]" #nominativo="ngModel" required
+   minlength="3" maxlength="30" name="nominativo" [ngModel]="newEmployee.fullName" >
+
+   <input type="text" placeholder="Qualifica" #qualifica="ngModel" required
+   minlength="3" maxlength="30" name="qualifica" [ngModel]="newEmployee.qualifier" >
+
+   <input type="text" placeholder="Attività" #attivita="ngModel" required
+   minlength="3" maxlength="30" name="attivita" [ngModel]="newEmployee.activity" >
+
+   <input type="number" placeholder="Eta" #age="ngModel" required
+   min="18" max="120" name="age" [ngModel]="newEmployee.age" >
+
+   <button type="submit" [disabled]="frmEmployee.invalid">Conferma Inserimento Impiegato</button>
+</form>

@@ -1,0 +1,9 @@
+<p>jsfake works!</p>
+<hr>
+<button (click)="GetPostByTitle()">Visualizza Post per titolo</button>
+<pre>
+  Ricerca singolo Postio: {{jsSinglePost?.title}}
+</pre>
+<hr>
+
+<li *ngFor="let j of jsFakePosts" >{{j.title}}</li>
